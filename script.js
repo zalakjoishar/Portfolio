@@ -66,20 +66,87 @@ const observer = new IntersectionObserver(function(entries) {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', function() {
-    const animateElements = document.querySelectorAll('.experience-item, .project-card, .skill-category, .education-item, .contact-item');
+    const animateElements = document.querySelectorAll('.experience-item, .project-card, .skill-category, .education-item, .contact-item, .contact-form');
     
-    animateElements.forEach(el => {
+    animateElements.forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
         observer.observe(el);
+    });
+    
+    // Animate headings on scroll
+    const headings = document.querySelectorAll('h2, h3, h4, h5');
+    headings.forEach((heading, index) => {
+        heading.style.opacity = '0';
+        heading.style.transform = 'translateY(20px)';
+        heading.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
+        observer.observe(heading);
     });
 });
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     highlightNavLink();
+    initEmailJS();
+    initContactForm();
 });
+
+// Initialize EmailJS
+function initEmailJS() {
+    emailjs.init("Er8d7F75OxvpiW1mN"); // Replace with your EmailJS Public Key
+}
+
+// Contact Form Handler
+function initContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Show sending message
+            formMessage.className = 'mt-3 text-center sending';
+            formMessage.textContent = 'Sending your message...';
+            formMessage.style.display = 'block';
+            
+            // EmailJS template parameters
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                subject: subject,
+                message: message,
+                to_email: 'zalakjoishar@gmail.com' // Your receiving email
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_7r9paev', 'template_pi4ou85', templateParams)
+                .then(function(response) {
+                    // Success
+                    formMessage.className = 'mt-3 text-center success';
+                    formMessage.textContent = 'Thank you! Your message has been sent successfully.';
+                    contactForm.reset();
+                    
+                    // Hide message after 5 seconds
+                    setTimeout(function() {
+                        formMessage.style.display = 'none';
+                    }, 5000);
+                }, function(error) {
+                    // Error
+                    formMessage.className = 'mt-3 text-center error';
+                    formMessage.textContent = 'Oops! Something went wrong. Please try again or email me directly at zalakjoishar@gmail.com';
+                    console.error('EmailJS Error:', error);
+                });
+        });
+    }
+}
 
 // Mobile menu close on link click
 const navLinksMobile = document.querySelectorAll('.navbar-nav .nav-link');
