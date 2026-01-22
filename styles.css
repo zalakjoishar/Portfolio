@@ -103,38 +103,32 @@ body {
 .hero-content {
     position: relative;
     z-index: 1;
-    animation: fadeInUp 1s ease;
 }
 
 .hero-content h1 {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: fadeInUp 1s ease, gradientShift 3s ease infinite;
-    background-size: 200% 200%;
+    animation: fadeInUp 0.8s ease, slideInLeft 1s ease;
+    transition: all 0.3s ease;
 }
 
-.hero-content h1 .text-primary {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradientShift 3s ease infinite;
-    background-size: 200% 200%;
-    display: inline-block;
+.hero-content h1:hover {
+    transform: translateY(-3px);
+    text-shadow: 0 5px 20px rgba(56, 189, 248, 0.4);
 }
 
 .hero-content h2 {
     font-size: 1.8rem;
     font-weight: 300;
     margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.3s forwards;
-    color: var(--text-secondary);
+    animation: fadeInUp 1s ease 0.2s both, slideInLeft 1.2s ease 0.2s;
+    transition: all 0.3s ease;
+}
+
+.hero-content h2:hover {
+    transform: translateX(5px);
+    color: var(--primary-color);
 }
 
 .hero-content .lead {
@@ -142,38 +136,22 @@ body {
     line-height: 1.8;
     margin-bottom: 2rem;
     color: var(--text-secondary);
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.6s forwards;
+    animation: fadeInUp 1.2s ease 0.4s both;
+    transition: all 0.3s ease;
+}
+
+.hero-content .lead:hover {
+    color: var(--text-primary);
+    transform: translateY(-2px);
 }
 
 .hero-buttons {
     margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.9s forwards;
+    animation: fadeInUp 1.4s ease 0.6s both;
 }
 
-.hero-buttons .btn {
-    transition: all 0.3s ease, transform 0.2s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-buttons .btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-}
-
-.hero-buttons .btn:hover::before {
-    width: 300px;
-    height: 300px;
+.social-links {
+    animation: fadeInUp 1.6s ease 0.8s both;
 }
 
 .btn-primary {
@@ -314,17 +292,13 @@ body {
     position: relative;
     padding-bottom: 1rem;
     color: var(--text-primary);
-    transition: transform 0.3s ease, color 0.3s ease;
-    display: inline-block;
-    width: 100%;
+    animation: fadeInUp 0.8s ease, textGlow 3s ease-in-out infinite;
+    transition: all 0.3s ease;
 }
 
 .section-title:hover {
-    transform: scale(1.05);
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    transform: translateY(-3px) scale(1.02);
+    text-shadow: 0 5px 20px rgba(56, 189, 248, 0.4);
 }
 
 .section-title::after {
@@ -337,13 +311,6 @@ body {
     height: 4px;
     background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
     border-radius: 2px;
-    transition: width 0.5s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-}
-
-.section-title:hover::after {
-    width: 120px;
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.8);
 }
 
 /* Experience Section */
@@ -374,7 +341,6 @@ body {
     color: var(--text-primary);
     margin-bottom: 0.5rem;
     transition: all 0.3s ease;
-    position: relative;
 }
 
 .experience-header h3:hover {
@@ -440,9 +406,9 @@ body {
     transition: all 0.3s ease;
 }
 
-.project-card:hover h3 {
+.project-card h3:hover {
     color: var(--primary-color);
-    transform: translateY(-2px);
+    transform: translateX(5px);
 }
 
 .project-card .text-muted {
@@ -521,21 +487,10 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: all 0.3s ease;
-}
-
-.skill-category h4:hover {
-    color: var(--primary-color);
-    transform: translateX(5px);
 }
 
 .skill-category h4 i {
     color: var(--primary-color);
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.skill-category h4:hover i {
-    transform: rotate(15deg) scale(1.1);
 }
 
 .skill-tags {
@@ -629,9 +584,9 @@ body {
     transition: all 0.3s ease;
 }
 
-.education-content:hover h3 {
+.education-content h3:hover {
     color: var(--primary-color);
-    transform: translateX(3px);
+    transform: translateX(5px);
 }
 
 .education-content h4 {
@@ -682,12 +637,6 @@ body {
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: var(--text-primary);
-    transition: all 0.3s ease;
-}
-
-.contact-item:hover h5 {
-    color: var(--primary-color);
-    transform: translateX(5px);
 }
 
 .contact-item p,
@@ -797,6 +746,138 @@ textarea.form-control {
     font-size: 0.9rem;
 }
 
+/* Text Animations */
+.hero-content h1 {
+    animation: fadeInUp 0.8s ease, slideInLeft 1s ease;
+}
+
+.hero-content h2 {
+    animation: fadeInUp 1s ease 0.2s both, slideInLeft 1.2s ease 0.2s;
+}
+
+.hero-content .lead {
+    animation: fadeInUp 1.2s ease 0.4s both;
+}
+
+.hero-buttons {
+    animation: fadeInUp 1.4s ease 0.6s both;
+}
+
+.social-links {
+    animation: fadeInUp 1.6s ease 0.8s both;
+}
+
+.section-title {
+    animation: fadeInUp 0.8s ease, textGlow 2s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(56, 189, 248, 0.5), 0 0 30px rgba(167, 139, 250, 0.3);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes textReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        clip-path: inset(0 0 100% 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    0%, 50% {
+        border-color: transparent;
+    }
+    51%, 100% {
+        border-color: var(--primary-color);
+    }
+}
+
+/* Text Hover Effects */
+h1, h2, h3, h4, h5 {
+    transition: all 0.3s ease;
+}
+
+h1:hover, h2:hover, h3:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 5px 15px rgba(56, 189, 248, 0.3);
+}
+
+.section-title:hover {
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* Staggered Text Animation */
+.experience-header h3,
+.project-card h3,
+.education-content h3 {
+    animation: fadeInUp 0.6s ease;
+    transition: all 0.3s ease;
+}
+
+.experience-header h3:hover,
+.project-card h3:hover,
+.education-content h3:hover {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+/* Text Gradient Animation */
+.text-gradient {
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s linear infinite;
+}
+
+@keyframes gradientShift {
+    to {
+        background-position: 200% center;
+    }
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {
@@ -820,27 +901,6 @@ textarea.form-control {
     }
 }
 
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-@keyframes textGlow {
-    0%, 100% {
-        text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-    }
-    50% {
-        text-shadow: 0 0 20px rgba(56, 189, 248, 0.8), 0 0 30px rgba(167, 139, 250, 0.5);
-    }
-}
-
 @keyframes slideInLeft {
     from {
         opacity: 0;
@@ -852,15 +912,51 @@ textarea.form-control {
     }
 }
 
-@keyframes scaleIn {
+@keyframes textGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(56, 189, 248, 0.5), 0 0 30px rgba(167, 139, 250, 0.3);
+    }
+}
+
+@keyframes textReveal {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: translateY(20px);
+        clip-path: inset(0 0 100% 0);
     }
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0);
+        clip-path: inset(0 0 0 0);
     }
+}
+
+/* Text Gradient Animation */
+.text-gradient {
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s linear infinite;
+}
+
+@keyframes gradientShift {
+    to {
+        background-position: 200% center;
+    }
+}
+
+/* General Text Transitions */
+h1, h2, h3, h4, h5 {
+    transition: all 0.3s ease;
+}
+
+p, .lead {
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 /* Responsive Design */

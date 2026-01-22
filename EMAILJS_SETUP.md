@@ -59,4 +59,3 @@ emailjs.send('service_abc123', 'template_xyz789', templateParams)
 That's it! Your contact form should now work.
 
 
-

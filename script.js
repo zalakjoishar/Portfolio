@@ -68,20 +68,33 @@ const observer = new IntersectionObserver(function(entries) {
 document.addEventListener('DOMContentLoaded', function() {
     const animateElements = document.querySelectorAll('.experience-item, .project-card, .skill-category, .education-item, .contact-item, .contact-form');
     
-    animateElements.forEach((el, index) => {
+    animateElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
-        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
     
-    // Animate headings on scroll
-    const headings = document.querySelectorAll('h2, h3, h4, h5');
-    headings.forEach((heading, index) => {
-        heading.style.opacity = '0';
-        heading.style.transform = 'translateY(20px)';
-        heading.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
-        observer.observe(heading);
+    // Animate text elements in sections (excluding hero which has its own animations)
+    const sectionTextElements = document.querySelectorAll('#about p, #experience p, #projects p, #skills p, #education p, #contact p');
+    const textObserver = new IntersectionObserver(function(entries) {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    sectionTextElements.forEach(el => {
+        if (!el.closest('.hero-content')) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(15px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            textObserver.observe(el);
+        }
     });
 });
 
